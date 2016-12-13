@@ -24,6 +24,13 @@ import org.moeaframework.core.PopulationIO;
 public class ResultIO implements Serializable {
 
     private static final long serialVersionUID = -2048768868854760056L;
+    
+    /**
+     * Prevent the creation of this object
+     */
+    private ResultIO(){
+        
+    }
 
     /**
      * Saves the measured metrics from the instrumenter (e.g. hypervolume,
@@ -93,7 +100,7 @@ public class ResultIO implements Serializable {
     /**
      * Writes a collection of solutions to the specified file. This saves all
      * the explanations as well as any computed objectives Files written using
-     * this method should only be read using the {@link #read} method. This
+     * this method should only be read using the method. This
      * method relies on serialization.
      *
      * @param pop the solutions to be written in the specified file
@@ -112,7 +119,7 @@ public class ResultIO implements Serializable {
 
     /**
      * Reads a population from the specified file. Files read using this method
-     * should only have been created using the {@link #write} method. This
+     * should only have been created using the method. This
      * method relies on serialization.
      *
      * @param filename the filename including the path to which the solutions

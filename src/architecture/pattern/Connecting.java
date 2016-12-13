@@ -37,7 +37,7 @@ public class Connecting extends BinaryVariable implements ArchitecturalDecision 
     /**
      * This constructor creates a graph with no connected edges.
      *
-     * @param nNodes
+     * @param nNodes the number of nodes to include in the graph
      * @param isDirected flag to determine if graph is directed
      * @param loop flag to determine if loops are allowed
      */
@@ -53,8 +53,8 @@ public class Connecting extends BinaryVariable implements ArchitecturalDecision 
      * edge from i to j. If undirected an undirected edge will be created
      * between i and j. Node count starts with 0.
      *
-     * @param i
-     * @param j
+     * @param i index of node i
+     * @param j index of node j
      * @return the value of the adjacency matrix in cell i,j before the change.
      * True = connected. False = not connected.
      */
@@ -80,8 +80,8 @@ public class Connecting extends BinaryVariable implements ArchitecturalDecision 
      * will only disconnect a directed edge from i to j. If undirected all edges
      * between i and j will be disconnected .Node count starts with 0.
      *
-     * @param i
-     * @param j
+     * @param i index of node i
+     * @param j index of node j
      * @return the value of the adjacency matrix in cell i,j before the change.
      * True = connected. False = not connected.
      */

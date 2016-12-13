@@ -53,7 +53,8 @@ public class DownSelecting extends BinaryVariable implements ArchitecturalDecisi
      * Creates a downselecting decsion that reflects the binary vector where
      * true bits represents "selected" and false bits represent "not selected".
      *
-     * @param binaryVector
+     * @param binaryVector a binary vector containing the decisions where
+     * true bits represents "selected" and false bits represent "not selected". 
      */
     public DownSelecting(BitSet binaryVector) {
         this(binaryVector.length());

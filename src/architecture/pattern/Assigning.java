@@ -110,7 +110,7 @@ public class Assigning extends BinaryVariable implements ArchitecturalDecision {
     
     /**
      * Returns the number of elements on the right hand side of the assigning pattern
-     * @return 
+     * @return elements on the left hand side of the assigning pattern
      */
     public int getNumberOfLHS(){
         return mNodes;
@@ -118,7 +118,7 @@ public class Assigning extends BinaryVariable implements ArchitecturalDecision {
     
     /**
      * Returns the number of elements on the right hand side of the assigning pattern
-     * @return 
+     * @return the number of elements on the right hand side of the assigning pattern
      */
     public int getNumberOfRHS(){
         return nNodes;

@@ -1,7 +1,6 @@
-/build/
+build*
 /dist/
 /nbproject/
-
-/nbproject/private/
+/libraries
 /build/
-/dist/
+manifest*

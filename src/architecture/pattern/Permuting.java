@@ -63,7 +63,7 @@ public class Permuting implements ArchitecturalDecision {
     
     /**
      * gets the number of elements in the permutation
-     * @return 
+     * @return the number of elements in the permutation
      */
     public int getLength(){
         return permProb.size();

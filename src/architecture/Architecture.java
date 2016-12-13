@@ -40,7 +40,7 @@ public class Architecture extends Solution {
 
     /**
      * Checks all the constraint values of the architecture.
-     * @return 
+     * @return true if the architecture is feasible
      */
     public boolean isFeasible() {
         for (int i = 0; i < getNumberOfConstraints(); i++) {
@@ -59,7 +59,7 @@ public class Architecture extends Solution {
     /**
      * Returns the values of each decision
      *
-     * @return
+     * @return a string with the values of each decision
      */
     @Override
     public String toString() {

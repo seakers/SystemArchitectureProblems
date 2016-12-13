@@ -26,15 +26,33 @@ public class Combining implements ArchitecturalDecision {
     /**
      * The current values of the decision
      */
-    private int[] values;
+    private final int[] values;
 
+    /**
+     * The number of alternatives available for each decision. Default solution
+     * has 0 selected for all decisions
+     *
+     * @param numAlternatives number of alternatives available for each decision
+     */
     public Combining(int[] numAlternatives) {
         this.numAlternatives = numAlternatives;
+        //check that all values are positive
+        for(int alt : numAlternatives){
+            if(alt<=0){
+                throw new IllegalArgumentException("The number of alternatives for any decision must be positive");
+            }
+        }
+        this.values = new int[numAlternatives.length];
     }
 
     public Combining(int[] numAlternatives, int[] value) {
         this(numAlternatives);
-        this.values = value;
+        if(numAlternatives.length != value.length){
+            throw new IllegalArgumentException("Expected a one-to-one mapping between groups of alternatives to decision values");
+        }
+        for(int i=0; i<value.length; i++){
+            this.values[i] = value[i];
+        }
     }
 
     /**
@@ -46,8 +64,8 @@ public class Combining implements ArchitecturalDecision {
      * @param value the value to set the decision at the given index
      */
     public void setValue(int index, int value) {
-        if (value >= values[index]) {
-            throw new IllegalArgumentException(String.format("Cannot access value greater than %d. Tried accessesing %d.", values[index], value));
+        if (value >= numAlternatives[index]) {
+            throw new IllegalArgumentException(String.format("Cannot access value greater than %d. Tried accessesing %d.", numAlternatives[index], value));
         }
         this.values[index] = value;
 
@@ -56,8 +74,8 @@ public class Combining implements ArchitecturalDecision {
     /**
      * Gets the value stored in the given index
      *
-     * @param index
-     * @return
+     * @param index the index of the decision of interest
+     * @return the value stored in the given index
      */
     public int getValue(int index) {
         return values[index];
@@ -67,7 +85,8 @@ public class Combining implements ArchitecturalDecision {
      * Returns the number of alternatives available for the specified decision
      *
      * @param index of the decision
-     * @return
+     * @return the number of possible alternatives available for the specified
+     * decision
      */
     public int getNumberOfAlternatives(int index) {
         return numAlternatives[index];
@@ -75,7 +94,7 @@ public class Combining implements ArchitecturalDecision {
 
     @Override
     public void randomize() {
-        for(int i=0; i<values.length; i++){
+        for (int i = 0; i < values.length; i++) {
             setValue(i, PRNG.nextInt(numAlternatives.length));
         }
     }
@@ -98,7 +117,7 @@ public class Combining implements ArchitecturalDecision {
     /**
      * Returns a string containing the value of the decision
      *
-     * @return
+     * @return the string containing the value of the decision
      */
     @Override
     public String toString() {
