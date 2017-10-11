@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package architecture.operators.permutation;
+package seak.architecture.operators.permutation;
 
 import java.util.HashMap;
 import java.util.HashSet;

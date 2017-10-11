@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package architecture.pattern;
+package seak.architecture.pattern;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import org.moeaframework.core.Variable;
 
 /**
@@ -16,7 +16,7 @@ import org.moeaframework.core.Variable;
  *
  * @author Nozomi
  */
-public interface ArchitecturalDecision extends Variable, Serializable{
+public interface ArchitecturalDecision{
     
     /**
      * Gets the architectural decision pattern for this decision
@@ -25,8 +25,20 @@ public interface ArchitecturalDecision extends Variable, Serializable{
     public DecisionPattern getPattern();
     
     /**
-     * Returns the number of variables that define the decision.
+     * Each architectural decision will have a tag that provides some identification or other information
      * @return 
+     */
+    public String getTag();
+    
+    /**
+     * Gets the variables that correspond to this architectural decision
+     * @return The ordered list of variables that correspond to this architectural decision
+     */
+    public ArrayList<Variable> getVariables();
+    
+    /**
+     * Gets the number variables that this decision pattern needs
+     * @return the number variables that this decision pattern needs
      */
     public int getNumberOfVariables();
 }
