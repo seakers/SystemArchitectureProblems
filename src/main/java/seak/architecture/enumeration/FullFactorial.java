@@ -9,6 +9,7 @@ import seak.architecture.pattern.ArchitecturalDecision;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * This class will conduct a full factorial enumeration of a given architectural
@@ -152,7 +153,7 @@ public class FullFactorial implements Enumeration {
         while (true) {
             ArrayList<int[]> curr = new ArrayList();
             for (int[] subPart : prev) {
-                for (int partNum = 0; partNum <= subPart[0]+1; partNum++) {
+                for (int partNum = 0; partNum <= subPart[0] + 1; partNum++) {
                     int[] extended = Arrays.copyOf(subPart, subPart.length + 1);
                     extended[subPart.length] = partNum;
                     extended[0] = Math.max(subPart[0], partNum);
@@ -161,7 +162,58 @@ public class FullFactorial implements Enumeration {
             }
             if (curr.get(0).length == nElements + 1) {
                 ArrayList<int[]> out = new ArrayList(curr.size());
-                for(int[] partition : curr){
+                for (int[] partition : curr) {
+                    out.add(Arrays.copyOfRange(partition, 1, partition.length));
+                }
+                return out;
+            }
+            prev = curr;
+        }
+    }
+
+    /**
+     * Conducts a full factorial enumeration of partitions but doesn't enumerate
+     * partitions that have more than a maximum allowable number of elements per
+     * partition. Partitions are returned as an array of integers where each
+     * integer value indicates the partition number an element belongs to. The
+     * largest partition number within an array is such that one minus the
+     * number is also a partition number belonging to the array.
+     *
+     * @param nElements the number of elements to consider in partitioning
+     * @param maxElements the maximum number of elements per partition
+     * @return a full factorial enumeration of collection of partitions
+     */
+    public static Collection<int[]> ffPartitioning(int nElements, int maxElements) {
+        //in implementation, we maintain the maximum partition number of the array in the 0th index
+        Collection<int[]> prev = new ArrayList();
+        prev.add(new int[]{0, 0});
+        while (true) {
+            ArrayList<int[]> curr = new ArrayList();
+            for (int[] subPart : prev) {
+                for (int partNum = 0; partNum <= subPart[0] + 1; partNum++) {
+                    int[] extended = Arrays.copyOf(subPart, subPart.length + 1);
+                    extended[subPart.length] = partNum;
+                    extended[0] = Math.max(subPart[0], partNum);
+                    curr.add(extended);
+                }
+            }
+            if (curr.get(0).length == nElements + 1) {
+                ArrayList<int[]> out = new ArrayList(curr.size());
+                for (int[] partition : curr) {
+                    HashMap<Integer,Integer> map = new HashMap();
+                    //count the number of elements in each partition
+                    for(int partitionNumber : partition){
+                        if(!map.containsKey(partitionNumber)){
+                            map.put(partitionNumber, 0);
+                        }
+                        map.put(partitionNumber, map.get(partitionNumber) + 1);
+                    }
+                    for(int elementCount : map.values()){
+                        if(elementCount > maxElements){
+                            break;
+                        }
+                    }
+                    //if partial partition meets constraint
                     out.add(Arrays.copyOfRange(partition, 1, partition.length));
                 }
                 return out;

@@ -6,8 +6,6 @@
 package seak.architecture.util;
 
 import java.text.MessageFormat;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.moeaframework.core.PRNG;
 import org.moeaframework.core.Variable;
 
@@ -117,28 +115,35 @@ public class IntegerVariable implements Variable {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder()
-                .append(lowerBound)
-                .append(upperBound)
-                .append(value)
-                .toHashCode();
+        int hash = 7;
+        hash = 89 * hash + this.value;
+        hash = 89 * hash + this.lowerBound;
+        hash = 89 * hash + this.upperBound;
+        return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == this) {
+        if (this == obj) {
             return true;
-        } else if ((obj == null) || (obj.getClass() != getClass())) {
-            return false;
-        } else {
-            IntegerVariable rhs = (IntegerVariable) obj;
-
-            return new EqualsBuilder()
-                    .append(lowerBound, rhs.lowerBound)
-                    .append(upperBound, rhs.upperBound)
-                    .append(value, rhs.value)
-                    .isEquals();
         }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final IntegerVariable other = (IntegerVariable) obj;
+        if (this.value != other.value) {
+            return false;
+        }
+        if (this.lowerBound != other.lowerBound) {
+            return false;
+        }
+        if (this.upperBound != other.upperBound) {
+            return false;
+        }
+        return true;
     }
 
     @Override
