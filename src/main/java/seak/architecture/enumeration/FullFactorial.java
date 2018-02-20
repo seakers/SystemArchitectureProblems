@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import org.paukov.combinatorics3.Generator;
 
 /**
  * This class will conduct a full factorial enumeration of a given architectural
@@ -137,16 +141,16 @@ public class FullFactorial implements Enumeration {
     }
 
     /**
-     * Conducts a full factorial enumeration of partitions. Partitions are
-     * returned as an array of integers where each integer value indicates the
-     * partition number an element belongs to. The largest partition number
+     * Conducts a full factorial enumeration of ordered partitions. Partitions
+     * are returned as an array of integers where each integer value indicates
+     * the partition number an element belongs to. The largest partition number
      * within an array is such that one minus the number is also a partition
      * number belonging to the array.
      *
      * @param nElements the number of elements to consider in partitioning
      * @return a full factorial enumeration of collection of partitions
      */
-    public static Collection<int[]> ffPartitioning(int nElements) {
+    public static Collection<int[]> ffOrderedPartitioning(int nElements) {
         //in implementation, we maintain the maximum partition number of the array in the 0th index
         Collection<int[]> prev = new ArrayList();
         prev.add(new int[]{0, 0});
@@ -161,8 +165,10 @@ public class FullFactorial implements Enumeration {
                 }
             }
             if (curr.get(0).length == nElements + 1) {
-                ArrayList<int[]> out = new ArrayList(curr.size());
+                //find unique 
+                HashSet<int[]> out = new HashSet();
                 for (int[] partition : curr) {
+                    //re
                     out.add(Arrays.copyOfRange(partition, 1, partition.length));
                 }
                 return out;
@@ -172,18 +178,29 @@ public class FullFactorial implements Enumeration {
     }
 
     /**
-     * Conducts a full factorial enumeration of partitions but doesn't enumerate
-     * partitions that have more than a maximum allowable number of elements per
-     * partition. Partitions are returned as an array of integers where each
-     * integer value indicates the partition number an element belongs to. The
-     * largest partition number within an array is such that one minus the
-     * number is also a partition number belonging to the array.
+     * Creates an iterator that iterates through all possible unordered
+     * partitions of an integer set of elements.
+     *
+     * @param nElements the number of elements to consider in partitioning
+     * @return an iterator of each possible partition
+     */
+    public static Iterator<List<Integer>> ffUnorderedPartitioning(int nElements) {
+        return Generator.partition(nElements).iterator();
+    }
+
+    /**
+     * Conducts a full factorial enumeration of ordered partitions but doesn't
+     * enumerate partitions that have more than a maximum allowable number of
+     * elements per partition. Partitions are returned as an array of integers
+     * where each integer value indicates the partition number an element
+     * belongs to. The largest partition number within an array is such that one
+     * minus the number is also a partition number belonging to the array.
      *
      * @param nElements the number of elements to consider in partitioning
      * @param maxElements the maximum number of elements per partition
      * @return a full factorial enumeration of collection of partitions
      */
-    public static Collection<int[]> ffPartitioning(int nElements, int maxElements) {
+    public static Collection<int[]> ffOrderedPartitioning(int nElements, int maxElements) {
         //in implementation, we maintain the maximum partition number of the array in the 0th index
         Collection<int[]> prev = new ArrayList();
         prev.add(new int[]{0, 0});
@@ -200,16 +217,16 @@ public class FullFactorial implements Enumeration {
             if (curr.get(0).length == nElements + 1) {
                 ArrayList<int[]> out = new ArrayList(curr.size());
                 for (int[] partition : curr) {
-                    HashMap<Integer,Integer> map = new HashMap();
+                    HashMap<Integer, Integer> map = new HashMap();
                     //count the number of elements in each partition
-                    for(int partitionNumber : partition){
-                        if(!map.containsKey(partitionNumber)){
+                    for (int partitionNumber : partition) {
+                        if (!map.containsKey(partitionNumber)) {
                             map.put(partitionNumber, 0);
                         }
                         map.put(partitionNumber, map.get(partitionNumber) + 1);
                     }
-                    for(int elementCount : map.values()){
-                        if(elementCount > maxElements){
+                    for (int elementCount : map.values()) {
+                        if (elementCount > maxElements) {
                             break;
                         }
                     }
