@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package seak.architecture.operators.permutation;
+package seakers.architecture.operators.permutation;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -72,8 +72,8 @@ public class CycleCrossover implements Variation {
         int[] child2 = new int[p2.size()];
 
         //map to store <value, index> for each permutation
-        HashMap<Integer, Integer> p1Map = new HashMap();
-        HashMap<Integer, Integer> p2Map = new HashMap();
+        HashMap<Integer, Integer> p1Map = new HashMap<>();
+        HashMap<Integer, Integer> p2Map = new HashMap<>();
         for (int i = 0; i < p1.size(); i++) {
             p1Map.put(p1.get(i), i);
             p2Map.put(p2.get(i), i);
@@ -82,7 +82,7 @@ public class CycleCrossover implements Variation {
         final int p1CycleStart = p1.get(0);
 
         //Find where cycle indices occur
-        HashSet<Integer> indices = new HashSet();
+        HashSet<Integer> indices = new HashSet<>();
         int current = p1CycleStart;
         do {
             final int ind = p1Map.get(current);

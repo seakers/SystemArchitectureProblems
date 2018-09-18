@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package seak.architecture.util;
+package seakers.architecture.util;
 
 import java.text.MessageFormat;
 import org.moeaframework.core.PRNG;

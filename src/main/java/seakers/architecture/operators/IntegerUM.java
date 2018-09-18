@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package seak.architecture.operators;
+package seakers.architecture.operators;
 
 import org.moeaframework.core.PRNG;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.Variable;
 import org.moeaframework.core.Variation;
-import org.moeaframework.core.variable.RealVariable;
-import seak.architecture.util.IntegerVariable;
+import seakers.architecture.util.IntegerVariable;
 
 /**
  * This operator is a uniform mutation over a set of integer valued variables

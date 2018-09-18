@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package seak.architecture.pattern;
+package seakers.architecture.pattern;
 
 import java.util.ArrayList;
 import org.moeaframework.core.Variable;

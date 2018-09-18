@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package seak.architecture.util;
+package seakers.architecture.util;
 
 import java.util.Objects;
 
@@ -13,7 +13,7 @@ import java.util.Objects;
  * {b,a}, where a and b are sets themselves.
  * @author nozomihitomi
  */
-public class OrderedPair<T>{
+public class OrderedPair<T> {
     
     private final T a;
     private final T b;

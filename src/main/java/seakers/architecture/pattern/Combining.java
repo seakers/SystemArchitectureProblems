@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package seak.architecture.pattern;
+package seakers.architecture.pattern;
 
-import seak.architecture.Architecture;
+import seakers.architecture.Architecture;
 import org.moeaframework.core.Variable;
 import java.io.Serializable;
 import java.util.ArrayList;
-import static seak.architecture.pattern.DecisionPattern.COMBINING;
-import seak.architecture.util.IntegerVariable;
+import static seakers.architecture.pattern.DecisionPattern.COMBINING;
+import seakers.architecture.util.IntegerVariable;
 
 /**
  *
@@ -110,7 +110,7 @@ public class Combining implements ArchitecturalDecision, Serializable {
 
     @Override
     public ArrayList<Variable> getVariables() {
-        ArrayList<Variable> out = new ArrayList(numAlternatives.length);
+        ArrayList<Variable> out = new ArrayList<>(numAlternatives.length);
         for (int i = 0; i < numAlternatives.length; i++) {
             out.add(new IntegerVariable(0, 0, numAlternatives[i] - 1));
         }

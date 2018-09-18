@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package seak.architecture.pattern;
+package seakers.architecture.pattern;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.moeaframework.core.Variable;
-import seak.architecture.util.IntegerVariable;
+import seakers.architecture.util.IntegerVariable;
 
 /**
  * This pattern is used when creating subsets from a set of entities. The union
@@ -51,7 +51,7 @@ public class Partitioning implements ArchitecturalDecision, Serializable {
 
     @Override
     public ArrayList<Variable> getVariables() {
-        ArrayList<Variable> out = new ArrayList(nElements);
+        ArrayList<Variable> out = new ArrayList<>(nElements);
         for (int i = 0; i < nElements; i++) {
             out.add(new IntegerVariable(i, 0, nElements-1));
         }

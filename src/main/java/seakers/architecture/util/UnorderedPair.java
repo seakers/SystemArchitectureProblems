@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package seak.architecture.util;
+package seakers.architecture.util;
 
 import java.util.Objects;
 
@@ -14,7 +14,7 @@ import java.util.Objects;
  * @author nozomihitomi
  * @param <T>
  */
-public class UnorderedPair<T> extends OrderedPair{
+public class UnorderedPair<T> extends OrderedPair<T> {
 
     public UnorderedPair(T a, T b) {
         super(a, b);

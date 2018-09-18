@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package seak.architecture.pattern;
+package seakers.architecture.pattern;
 
-import seak.architecture.Architecture;
+import seakers.architecture.Architecture;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.moeaframework.core.Variable;

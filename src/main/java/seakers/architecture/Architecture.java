@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package seak.architecture;
+package seakers.architecture;
 
-import seak.architecture.pattern.ArchitecturalDecision;
+import seakers.architecture.pattern.ArchitecturalDecision;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -31,17 +31,17 @@ public class Architecture extends Solution {
     public Architecture(int numberOfDecisions, int numberOfObjectives, int numberOfConstraints, ArrayList<ArchitecturalDecision> decisions) {
         super(numberOfDecisions, numberOfObjectives, numberOfConstraints);
         
-        this.indices = new HashMap();
-        this.decisions = new HashMap();
+        this.indices = new HashMap<>();
+        this.decisions = new HashMap<>();
         
         int varIndex = 0;
-        for(int i=0; i<decisions.size(); i++){
-            String tag = decisions.get(i).getTag();
+        for (ArchitecturalDecision decision : decisions) {
+            String tag = decision.getTag();
             if(indices.put(tag, varIndex) != null){
                 throw new IllegalArgumentException(String.format("Decision %s already exists",tag));
             }
-            this.decisions.put(tag, decisions.get(i));
-            ArrayList<Variable> vars = decisions.get(i).getVariables();
+            this.decisions.put(tag, decision);
+            ArrayList<Variable> vars = decision.getVariables();
             for(int j=0; j<vars.size(); j++){
                 setVariable(j + varIndex, vars.get(j));
             }

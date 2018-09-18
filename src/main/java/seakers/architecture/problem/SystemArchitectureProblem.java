@@ -3,17 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package seak.architecture.enumeration;
-
-import seak.architecture.pattern.ArchitecturalDecision;
-import java.util.Collection;
+package seakers.architecture.problem;
 
 /**
  *
  * @author nozomihitomi
  */
-public interface Enumeration{
-    
-    public Collection<ArchitecturalDecision> enumerate();
+public interface SystemArchitectureProblem {
     
 }

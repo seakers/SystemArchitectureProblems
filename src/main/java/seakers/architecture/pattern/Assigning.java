@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package seak.architecture.pattern;
+package seakers.architecture.pattern;
 
-import seak.architecture.Architecture;
+import seakers.architecture.Architecture;
 import java.io.Serializable;
 import java.util.ArrayList;
 import org.moeaframework.core.Variable;
 import org.moeaframework.core.variable.BinaryVariable;
-import static seak.architecture.pattern.DecisionPattern.ASSINGING;
 
 /**
  * This pattern assumes there are two different sets of entities, and an
@@ -52,7 +51,7 @@ public class Assigning implements ArchitecturalDecision, Serializable{
 
     @Override
     public DecisionPattern getPattern() {
-        return ASSINGING;
+        return DecisionPattern.ASSINGING;
     }
 
     /**

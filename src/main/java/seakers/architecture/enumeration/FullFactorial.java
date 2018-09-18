@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package seak.architecture.enumeration;
+package seakers.architecture.enumeration;
 
-import seak.architecture.pattern.ArchitecturalDecision;
+import seakers.architecture.pattern.ArchitecturalDecision;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,7 +37,7 @@ public class FullFactorial implements Enumeration {
 
     @Override
     public Collection<ArchitecturalDecision> enumerate() {
-        ArrayList<ArchitecturalDecision> out = new ArrayList();
+        ArrayList<ArchitecturalDecision> out = new ArrayList<>();
         switch (template.getPattern()) {
             case ASSINGING:
                 break;
@@ -126,7 +126,7 @@ public class FullFactorial implements Enumeration {
         Arrays.fill(levels, 2);
         Collection<int[]> vectorRes = ffCombining(levels);
 
-        ArrayList<int[][]> out = new ArrayList((int) Math.pow(2, nLHS * nRHS));
+        ArrayList<int[][]> out = new ArrayList<>((int) Math.pow(2, nLHS * nRHS));
         for (int[] soln : vectorRes) {
             int[][] matrix = new int[nLHS][nRHS];
             int index = 0;
@@ -152,10 +152,10 @@ public class FullFactorial implements Enumeration {
      */
     public static Collection<int[]> ffOrderedPartitioning(int nElements) {
         //in implementation, we maintain the maximum partition number of the array in the 0th index
-        Collection<int[]> prev = new ArrayList();
+        Collection<int[]> prev = new ArrayList<>();
         prev.add(new int[]{0, 0});
         while (true) {
-            ArrayList<int[]> curr = new ArrayList();
+            ArrayList<int[]> curr = new ArrayList<>();
             for (int[] subPart : prev) {
                 for (int partNum = 0; partNum <= subPart[0] + 1; partNum++) {
                     int[] extended = Arrays.copyOf(subPart, subPart.length + 1);
@@ -166,7 +166,7 @@ public class FullFactorial implements Enumeration {
             }
             if (curr.get(0).length == nElements + 1) {
                 //find unique 
-                HashSet<int[]> out = new HashSet();
+                HashSet<int[]> out = new HashSet<>();
                 for (int[] partition : curr) {
                     //re
                     out.add(Arrays.copyOfRange(partition, 1, partition.length));
@@ -202,10 +202,10 @@ public class FullFactorial implements Enumeration {
      */
     public static Collection<int[]> ffOrderedPartitioning(int nElements, int maxElements) {
         //in implementation, we maintain the maximum partition number of the array in the 0th index
-        Collection<int[]> prev = new ArrayList();
+        Collection<int[]> prev = new ArrayList<>();
         prev.add(new int[]{0, 0});
         while (true) {
-            ArrayList<int[]> curr = new ArrayList();
+            ArrayList<int[]> curr = new ArrayList<>();
             for (int[] subPart : prev) {
                 for (int partNum = 0; partNum <= subPart[0] + 1; partNum++) {
                     int[] extended = Arrays.copyOf(subPart, subPart.length + 1);
@@ -215,9 +215,9 @@ public class FullFactorial implements Enumeration {
                 }
             }
             if (curr.get(0).length == nElements + 1) {
-                ArrayList<int[]> out = new ArrayList(curr.size());
+                ArrayList<int[]> out = new ArrayList<>(curr.size());
                 for (int[] partition : curr) {
-                    HashMap<Integer, Integer> map = new HashMap();
+                    HashMap<Integer, Integer> map = new HashMap<>();
                     //count the number of elements in each partition
                     for (int partitionNumber : partition) {
                         if (!map.containsKey(partitionNumber)) {
@@ -277,7 +277,7 @@ public class FullFactorial implements Enumeration {
      * @param array the permutation
      * @param l left index
      * @param r right index
-     * @param permuations container for completed permutations
+     * @param permutations container for completed permutations
      */
     private static void permute(int[] array, int l, int r, Collection<int[]> permutations) {
         if (l == r) {

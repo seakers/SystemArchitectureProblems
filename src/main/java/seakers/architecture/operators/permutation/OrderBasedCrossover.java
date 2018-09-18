@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package seak.architecture.operators.permutation;
+package seakers.architecture.operators.permutation;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import org.moeaframework.core.PRNG;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.Variable;
@@ -14,22 +15,11 @@ import org.moeaframework.core.Variation;
 import org.moeaframework.core.variable.Permutation;
 
 /**
- * "In uniform order-based crossover, two parents (say P1 and P2) are randomly
- * selected and a random binary template is generated. Some of the genes for
- * offspring C1 are filled by taking the genes from parent P1 where there is a
- * one in the template. At this point we have C1 partially filled, but it has
- * some “gaps”. The genes of parent P1 in the positions corresponding to zeros
- * in the template are taken and sorted in the same order as they appear in
- * parent P2. The sorted list is used to fill the gaps in C1. Offspring C2 is
- * created using a similar process."
  *
- * Description obtained from Book "Search Methodologies" Chapter 4 "Genetic
- * Algorithms" by Kumara Sastry, David E. Goldberg, Graham Kendall.
- * 10.1007/978-1-4614-6940-7_4
  *
  * @author nozomihitomi
  */
-public class UniformOrderCrossover implements Variation {
+public class OrderBasedCrossover implements Variation {
 
     /**
      * The probability of applying this operator.
@@ -37,12 +27,12 @@ public class UniformOrderCrossover implements Variation {
     private final double probability;
 
     /**
-     * Constructs a UniformOrderBasedCrossover operator with the specified
+     * Constructs a OrderBasedCrossover operator with the specified
      * probability.
      *
      * @param probability the probability of applying this operator
      */
-    public UniformOrderCrossover(double probability) {
+    public OrderBasedCrossover(double probability) {
         super();
         this.probability = probability;
     }
@@ -82,40 +72,62 @@ public class UniformOrderCrossover implements Variation {
      * @param p2
      */
     private void evolve(Permutation p1, Permutation p2) {
+        //select 2 cross points
+        int crossoverPoint1 = PRNG.nextInt(p1.size() - 1);
+        int crossoverPoint2 = PRNG.nextInt(p1.size() - 1);
+        if (crossoverPoint1 > crossoverPoint2) {
+            int temp = crossoverPoint1;
+            crossoverPoint1 = crossoverPoint2;
+            crossoverPoint2 = temp;
+        }
+
         int[] child1 = new int[p1.size()];
         int[] child2 = new int[p2.size()];
 
-        ArrayList<Integer> indices = new ArrayList(p1.size());
-        ArrayList<Integer> p1MissingVals = new ArrayList(p1.size());
-        ArrayList<Integer> p2MissingVals = new ArrayList(p1.size());
+        ArrayList<Integer> indices = new ArrayList<>(p1.size());
+        HashSet<Integer> p1MissingVals = new HashSet<>(p1.size());
+        HashSet<Integer> p2MissingVals = new HashSet<>(p1.size());
         //map to store <value, index> for each permutation
-        HashMap<Integer, Integer> p1Map = new HashMap();
-        HashMap<Integer, Integer> p2Map = new HashMap();
+        HashMap<Integer, Integer> p1Map = new HashMap<>();
+        HashMap<Integer, Integer> p2Map = new HashMap<>();
         for (int i = 0; i < p1.size(); i++) {
-            if (PRNG.nextBoolean()) {
+            if (i > crossoverPoint1 && i <= crossoverPoint2) {
                 child1[i] = p1.get(i);
                 child2[i] = p2.get(i);
             } else {
                 indices.add(i);
-                p1MissingVals.add(p1.get(i));
                 p2MissingVals.add(p2.get(i));
             }
-            p1Map.put(p1.get(i),i);
-            p2Map.put(p2.get(i),i);
+            p1Map.put(p1.get(i), i);
+            p2Map.put(p2.get(i), i);
         }
         
-        //Create lists storing the ordered values to insert
-        ArrayList<Integer> p1List = new ArrayList(p1.size());
-        ArrayList<Integer> p2List = new ArrayList(p1.size());
-        for(int i = 0; i < indices.size(); i++){
-            p1List.add(p2Map.get(p1MissingVals.get(i)));
-            p2List.add(p1Map.get(p2MissingVals.get(i)));
+        //fill in the rest of child1 starting from the second cross point
+        int ind = crossoverPoint2 + 1;
+        int counter = 0;
+        while(!p1MissingVals.isEmpty()){
+            if(ind == p1Map.size()){
+                ind = 0;
+            }
+            if(!p1MissingVals.contains(p2Map.get(ind))){
+                child1[indices.get(counter)] = p2Map.get(ind);
+                p1MissingVals.remove(p2Map.get(ind));
+                counter++;
+            }
         }
-
-        //fill in the rest of child1 and child2
-        for (int i = 0; i < indices.size(); i++) {
-            child1[indices.get(i)] = p1List.get(i);
-            child2[indices.get(i)] = p2List.get(i);
+        
+        //fill in the rest of child2 starting from the second cross point
+        ind = crossoverPoint2 + 1;
+        counter = 0;
+        while(!p2MissingVals.isEmpty()){
+            if(ind == p2Map.size()){
+                ind = 0;
+            }
+            if(!p2MissingVals.contains(p1Map.get(ind))){
+                child2[indices.get(counter)] = p1Map.get(ind);
+                p2MissingVals.remove(p1Map.get(ind));
+                counter++;
+            }
         }
 
         //copy children permutation over
